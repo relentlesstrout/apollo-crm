@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('house_no');
             $table->string('street');
             $table->string('area');
-            $table->string('phone');
-            $table->string('notes')->nullable();
+            $table->string('phone')->nullable();
+            $table->text('notes')->nullable(); // add this line
+            $table->timestamps();
         });
     }
 

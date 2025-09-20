@@ -5,4 +5,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('customers', CustomerController::class);
 
+Route::get('/', function () {
+    return view('home');
+});
+
+
 
