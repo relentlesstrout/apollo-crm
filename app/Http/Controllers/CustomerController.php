@@ -7,9 +7,18 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::all();
+        $customers = Customer::query();
+
+        if ($request->filled('search')) {
+            $customers->where('house_no', 'like', '%' . $request->search . '%')
+                ->orWhere('street', 'like', '%' . $request->search . '%')
+                ->orWhere('area', 'like', '%' . $request->search . '%');
+        }
+
+        $customers = $customers->paginate(30);
+
         return view('customers.index', compact('customers'));
     }
 
@@ -27,7 +36,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'house_no' => 'required|string|max:10',
+            'house_no' => 'required|string',
             'street' => 'required|string|max:50',
             'area' => 'required|string',
             'phone' => 'nullable|string|max:20',
