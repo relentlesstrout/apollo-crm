@@ -3,7 +3,6 @@
 @section('content')
 
     <div class="flex justify-between items-center p-4 bg-gray-100 border-b border-gray-300">
-        <!-- Search Bar on the left -->
         <form action="{{ route('customers.index') }}" method="GET" class="flex items-center">
             <input type="text" name="search" placeholder="Search customers..."
                    value="{{ request('search') }}"
@@ -14,7 +13,6 @@
             </button>
         </form>
 
-        <!-- Add New Customer button on the right -->
         <a href="{{ route('customers.create') }}"
            class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-semibold shadow hover:bg-blue-700">
             + Add New Customer

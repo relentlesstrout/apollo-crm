@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CleaningJob;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 
 class CleaningJobController extends Controller
@@ -12,6 +13,7 @@ class CleaningJobController extends Controller
      */
     public function index()
     {
+        $cleaningJobs = CleaningJob::all();
     }
 
     /**
@@ -43,7 +45,7 @@ class CleaningJobController extends Controller
      */
     public function edit(CleaningJob $cleaningJob)
     {
-        //
+
     }
 
     /**
@@ -51,7 +53,16 @@ class CleaningJobController extends Controller
      */
     public function update(Request $request, CleaningJob $cleaningJob)
     {
-        //
+        $cleaningJob->update($request->all());
+
+        if ($request->status === 'completed' && !$cleaningJob->customer->cancelled) {
+            CleaningJob::create([
+                'customer_id' => $cleaningJob->customer_id,
+                'scheduled_at' => $cleaningJob->completed_at->copy()->addWeeks(4),
+                'price' => $cleaningJob->customer->standard_price,
+                'status' => 'scheduled',
+            ]);
+        }
     }
 
     /**
@@ -61,4 +72,23 @@ class CleaningJobController extends Controller
     {
         //
     }
+
+
+    public function scheduleNextJobs()
+    {
+        $customers = Customer::where('cancelled', false)->get();
+
+        foreach ($customers as $customer) {
+            CleaningJob::create([
+                'customer_id' => $customer->id,
+                'scheduled_at' => now()->addWeeks(4),
+                'price' => $customer->price,
+                'status' => 'scheduled',
+                'paid' => false,
+            ]);
+        }
+
+        return 'Jobs scheduled!';
+    }
 }
+

@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    public function areas()
+    {
+        $areas = Customer::pluck('area')->unique();
+        return view('customers.areas', ['areas' => $areas]);
+    }
     public function index(Request $request)
     {
         $customers = Customer::query();
