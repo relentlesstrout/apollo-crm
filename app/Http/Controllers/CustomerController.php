@@ -56,9 +56,10 @@ class CustomerController extends Controller
             ->allowedFilters(['house', 'street', 'area'])
             ->paginate(12);
 
-        $areas = Customer::pluck('area')->unique();
+        $filters = Customer::select('house', 'street', 'area')->get()->unique();
 
-        return view('customers.index', compact('areas', 'customers'));
+
+        return view('customers.index', compact('filters', 'customers'));
     }
 
     /**
