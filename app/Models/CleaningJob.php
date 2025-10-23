@@ -30,6 +30,6 @@ class CleaningJob extends Model
 
     public function invoice()
     {
-        return $this->hasOne(Invoice::class, 'job_id');
+        return $this->hasOne(Invoice::class);
     }
 }
