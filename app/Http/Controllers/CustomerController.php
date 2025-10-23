@@ -37,24 +37,18 @@ class CustomerController extends Controller
 
     public function index(Request $request)
     {
-//        $customers = Customer::query();
-//
-//        if ($request->filled('search')) {
-//            $customers->where(function($query) use ($request) {
-//                $query->where('house_no', 'like', '%' . $request->search . '%')
-//                    ->orWhere('street', 'like', '%' . $request->search . '%')
-//                    ->orWhere('area', 'like', '%' . $request->search . '%');
-//            });
-//        }
-//
-//        if ($request->filled('area')) {
-//            $customers->where('area', $request->input('area'));
-//        }
-//        $customers = $customers->paginate(30);
+        // Determine which customers to show based on show_deleted toggle
+        if ($request->input('show_deleted') === '1') {
+            // Show only soft-deleted customers
+            $query = QueryBuilder::for(Customer::onlyTrashed())
+                ->allowedFilters(['house', 'street', 'area']);
+        } else {
+            // Show only non-deleted customers (default)
+            $query = QueryBuilder::for(Customer::class)
+                ->allowedFilters(['house', 'street', 'area']);
+        }
 
-        $customers = QueryBuilder::for(Customer::class)
-            ->allowedFilters(['house', 'street', 'area'])
-            ->paginate(12);
+        $customers = $query->paginate(12);
 
         $areas = Customer::pluck('area')->unique();
 
