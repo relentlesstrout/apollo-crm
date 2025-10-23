@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1" type="module"></script>
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>Apollo CRM</title>
 </head>
 
@@ -31,6 +31,8 @@
         </ul>
     </div>
 @endif
+
+@stack('scripts')
 </body>
 
 </html>
