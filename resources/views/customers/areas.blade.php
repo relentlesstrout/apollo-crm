@@ -3,14 +3,9 @@
 
 @section('content')
 
-    <div class="container mx-auto p-6">
-        <x-breadcrumb :items="[
-    ['title' => 'Areas', 'url' => route('customers.areas')],
-]" />
-
         <div class="grid grid-cols-2 gap-6">
             @foreach ($areas as $area)
-                <a href="{{ route('customers.index', $area) }}">
+                <a href="{{ route('customers.streets', $area) }}">
                 <div class="h-50 relative rounded-lg overflow-hidden shadow-md">
                     <!-- Background Image -->
                     <div
@@ -25,5 +20,4 @@
                 </div>
             @endforeach
         </div>
-    </div>
 @endsection

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class CleaningJob extends Model
 {
+    use HasFactory;
     protected $fillable = [
         'customer_id',
         'price',
@@ -15,7 +17,7 @@ class CleaningJob extends Model
     ];
 
     protected $casts = [
-        'scheduled_at' => 'datetime',
+        'scheduled_for' => 'datetime',
         'completed_at' => 'datetime',
         'paid' => 'boolean',
         'price' => 'decimal:2',
@@ -24,5 +26,10 @@ class CleaningJob extends Model
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function invoice()
+    {
+        return $this->hasOne(Invoice::class, 'job_id');
     }
 }

@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 
 class Customer extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
+
     protected $fillable = [
         'house_no',
         'street',
@@ -20,7 +22,21 @@ class Customer extends Model
 
     public function cleaningJobs()
     {
-        return $this->hasMany(CleaningJob::class);
+        return $this->hasMany(CleaningJob::class)->orderby('completed_at', 'desc');
+    }
+
+    //TODO
+    public function invoices()
+    {
+//        return $this->hasManyThrough(
+//            Invoice::class,
+//            CleaningJob::class,
+//            'customer_id', // Foreign key on cleaning_jobs table
+//            'job_id',      // Foreign key on invoices table
+//            'id',          // Local key on customers table
+//            'id'           // Local key on cleaning_jobs table
+//        );
+        return $this->hasManyThrough(Invoice::class, CleaningJob::class);
     }
 
 }

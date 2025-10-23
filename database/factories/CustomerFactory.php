@@ -20,7 +20,7 @@ class CustomerFactory extends Factory
     {
 
         return [
-            'house_no' => $this->faker->buildingNumber(),
+            'house' => $this->faker->buildingNumber(),
             'street' => $this->faker->streetName(),
             'area' => $this->faker->city(),
             'phone' => $this->faker->phoneNumber(),

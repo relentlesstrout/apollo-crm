@@ -14,6 +14,8 @@ class CleaningJobController extends Controller
     public function index()
     {
         $cleaningJobs = CleaningJob::all();
+
+        return view('cleaningJobs.index', ['cleaningJobs' => $cleaningJobs]);
     }
 
     /**
@@ -89,6 +91,13 @@ class CleaningJobController extends Controller
         }
 
         return 'Jobs scheduled!';
+    }
+
+    public function today()
+    {
+        $todaysJobs = CleaningJob::where('scheduled_at', today())->get();
+
+        return view('cleaningJobs.today', ['todayJobs' => $todaysJobs]);
     }
 }
 

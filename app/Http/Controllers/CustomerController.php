@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Customer;
 use Illuminate\Http\Request;
+use Spatie\QueryBuilder\QueryBuilder;
 
 class CustomerController extends Controller
 {
@@ -12,19 +13,52 @@ class CustomerController extends Controller
         $areas = Customer::pluck('area')->unique();
         return view('customers.areas', ['areas' => $areas]);
     }
+
+    public function streets($area)
+    {
+        $streets = Customer::where('area', $area)
+            ->select('street')
+            ->distinct()
+            ->get()
+            ->pluck('street');
+
+        return view('customers.streets', compact('area', 'streets'));
+    }
+
+    public function streetCustomers($area, $street)
+    {
+        $customers = Customer::with('CleaningJobs')
+            ->where('area', $area)
+            ->where('street', $street)
+            ->paginate(12);
+
+        return view('customers.streetcustomers', compact('customers', 'area', 'street'));
+    }
+
     public function index(Request $request)
     {
-        $customers = Customer::query();
+//        $customers = Customer::query();
+//
+//        if ($request->filled('search')) {
+//            $customers->where(function($query) use ($request) {
+//                $query->where('house_no', 'like', '%' . $request->search . '%')
+//                    ->orWhere('street', 'like', '%' . $request->search . '%')
+//                    ->orWhere('area', 'like', '%' . $request->search . '%');
+//            });
+//        }
+//
+//        if ($request->filled('area')) {
+//            $customers->where('area', $request->input('area'));
+//        }
+//        $customers = $customers->paginate(30);
 
-        if ($request->filled('search')) {
-            $customers->where('house_no', 'like', '%' . $request->search . '%')
-                ->orWhere('street', 'like', '%' . $request->search . '%')
-                ->orWhere('area', 'like', '%' . $request->search . '%');
-        }
+        $customers = QueryBuilder::for(Customer::class)
+            ->allowedFilters(['house', 'street', 'area'])
+            ->paginate(12);
 
-        $customers = $customers->paginate(30);
+        $areas = Customer::pluck('area')->unique();
 
-        return view('customers.index', compact('customers'));
+        return view('customers.index', compact('areas', 'customers'));
     }
 
     /**
