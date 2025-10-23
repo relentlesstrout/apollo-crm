@@ -22,10 +22,10 @@
            id="{{ $uniqueId }}"
            {{ $isChecked ? 'checked' : '' }}
            class="sr-only">
-    <span class="flex items-center space-x-2 rounded py-2 px-4 text-sm font-medium transition-all {{ !$isChecked ? 'bg-blue-200 text-gray-800' : 'text-gray-600 bg-transparent' }}">
+    <span class="flex items-center space-x-2 rounded py-2 px-4 text-sm font-medium transition-all {{ !$isChecked ? 'bg-blue-200 text-gray-700' : 'text-gray-600 bg-transparent' }}">
         {{ $inactiveLabel }}
     </span>
-    <span class="flex items-center space-x-2 rounded py-2 px-4 text-sm font-medium transition-all {{ $isChecked ? 'bg-blue-200 text-gray-800' : 'text-gray-600 bg-transparent' }}">
+    <span class="flex items-center space-x-2 rounded py-2 px-4 text-sm font-medium transition-all {{ $isChecked ? 'bg-blue-200 text-gray-700' : 'text-gray-600 bg-transparent' }}">
         {{ $activeLabel }}
     </span>
 </label>
