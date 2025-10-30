@@ -16,6 +16,7 @@ class CleaningJobController extends Controller
     public function index()
     {
         $cleaningJobs = QueryBuilder::for(CleaningJob::class)
+            ->with('customer')
             ->allowedFilters(['customer_id', 'price', 'scheduled_for', 'status', 'completed_at'])
             ->paginate(12);
 

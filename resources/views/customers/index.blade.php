@@ -15,6 +15,13 @@
                     'field_name' => 'filter[area]'
                 ])
 
+                @include('components.fields.multi-select', [
+                'label' => 'Street',
+                'options' => $streets,
+                'field_name' => 'filter[street]'
+                ])
+
+
                 @include('components.fields.toggle-switch', [
                     'field_name' => 'show_deleted',
                     'inactive_label' => 'Active Customers',
@@ -23,7 +30,7 @@
             </div>
             <div>
                 <button type="submit" class="items-center gap-x-4 rounded-md cursor-pointer px-3.5 py-2.5 text-sm text-gray-900 shadow-xs inset-ring inset-ring-gray-300 hover:bg-gray-50">
-                    Filter
+                    Apply Filter
                 </button>
             </div>
         </div>

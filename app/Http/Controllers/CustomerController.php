@@ -50,9 +50,10 @@ class CustomerController extends Controller
 
         $customers = $query->paginate(12);
 
-        $areas = Customer::pluck('area')->unique();
+        $areas = Customer::distinct()->pluck('area');
+        $streets = Customer::distinct()->pluck('street');
 
-        return view('customers.index', compact('areas', 'customers'));
+        return view('customers.index', compact('areas', 'streets', 'customers'));
     }
 
     /**
