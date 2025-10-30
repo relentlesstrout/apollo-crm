@@ -6,6 +6,7 @@ use App\Models\CleaningJob;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
+use Spatie\QueryBuilder\AllowedFilter;
 
 
 class CleaningJobController extends Controller
@@ -13,20 +14,40 @@ class CleaningJobController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $cleaningJobs = QueryBuilder::for(CleaningJob::class)
+        $query = QueryBuilder::for(CleaningJob::class)
             ->with('customer')
-            ->allowedFilters(['customer_id', 'price', 'scheduled_for', 'status', 'completed_at'])
-            ->paginate(12);
+            ->allowedFilters([
+                'price',
+                'scheduled_for',
+                'status',
 
-        $filters = CleaningJob::select('customer_id',
-            'price',
-            'scheduled_for',
-            'status',
-            'completed_at')->get()->unique();
+                // Filter by multiple areas
+                AllowedFilter::callback('area', function ($query, $values) {
+                    $values = (array) $values; // ensure it’s an array (from multi-select)
+                    $query->whereHas('customer', function ($q) use ($values) {
+                        $q->whereIn('area', $values);
+                    });
+                }),
 
-        return view('cleaningJobs.index', compact('cleaningJobs', 'filters'));
+                // Filter by multiple streets
+                AllowedFilter::callback('street', function ($query, $values) {
+                    $values = (array) $values;
+                    $query->whereHas('customer', function ($q) use ($values) {
+                        $q->whereIn('street', $values);
+                    });
+                }),
+            ]);
+
+        $cleaningJobs = $query->paginate(12);
+
+        // Distinct area/street lists for dropdown options
+        $areas = Customer::distinct()->pluck('area')->filter();
+        $streets = Customer::distinct()->pluck('street')->filter();
+        $houses = Customer::distinct()->pluck('house')->filter();
+
+        return view('cleaningJobs.index', compact('cleaningJobs', 'areas', 'streets', 'houses'));
     }
 
     /**
