@@ -11,15 +11,12 @@ class CleaningJob extends Model
     protected $fillable = [
         'customer_id',
         'price',
-        'scheduled_at',
         'status',
-        'paid',
     ];
 
     protected $casts = [
         'scheduled_for' => 'datetime',
         'completed_at' => 'datetime',
-        'paid' => 'boolean',
         'price' => 'decimal:2',
     ];
 

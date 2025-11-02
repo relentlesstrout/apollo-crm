@@ -12,12 +12,16 @@ class Customer extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'house_no',
+        'house',
         'street',
         'area',
         'phone',
         'notes',
-        'cancelled'
+        'cancelled',
+        'price',
+        'scheduled_for',
+        'status',
+        'completed_at'
     ];
 
     public function cleaningJobs()

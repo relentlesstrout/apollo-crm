@@ -74,10 +74,22 @@ class CustomerController extends Controller
             'street' => 'required|string|max:50',
             'area' => 'required|string',
             'phone' => 'nullable|string|max:20',
-            'notes' => 'nullable|string|max:255'
+            'notes' => 'nullable|string|max:255',
+            'first_clean_price' => 'required|numeric|min:0',
+            'first_clean_date' => 'required|date',
         ]);
 
-        Customer::create($validated);
+        $customer = Customer::create(collect($validated)->except(['first_clean_price', 'first_clean_date'])->toArray());
+
+        // Create first Job
+
+        $customer->cleaningJobs()->create([
+            'price' => $validated['first_clean_price'],
+            'scheduled_for' => $validated['first_clean_date'],
+            'status' => 'scheduled',
+            'completed_at' => null,
+            'notes' => null,
+        ]);
 
         return redirect()->route('customers.index')
         ->with('success', 'Customer created successfully.');
