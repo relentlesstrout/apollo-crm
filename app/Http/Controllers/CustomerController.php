@@ -70,7 +70,7 @@ class CustomerController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'house_no' => 'required|string',
+            'house' => 'required|string',
             'street' => 'required|string|max:50',
             'area' => 'required|string',
             'phone' => 'nullable|string|max:20',

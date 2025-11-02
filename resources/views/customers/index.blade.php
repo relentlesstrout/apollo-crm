@@ -6,6 +6,13 @@
             {{ session('success') }}
         </div>
     @endif
+    <div class="mb-3">
+        <a href="{{ route('customers.create') }}"
+           class="inline-block bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+            + Create New Customer
+        </a>
+    </div>
+
     <form method="GET" action="{{ route('customers.index') }}" class="filters pb-6" id="customer-filter-form">
         <div class="flex justify-between items-end">
             <div class="flex gap-4 items-end">

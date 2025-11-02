@@ -8,8 +8,8 @@
                 @csrf
                 <div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
                     <div class="sm:col-span-2">
-                        <label for="house_no" class="block mb-2 text-sm font-medium text-gray-900 ">House name/no.</label>
-                        <input type="text" name="house_no" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  :ring-primary-500 :border-primary-500" placeholder="Type house name/no." required="">
+                        <label for="house" class="block mb-2 text-sm font-medium text-gray-900 ">House name/no.</label>
+                        <input type="text" name="house" id="name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5  :ring-primary-500 :border-primary-500" placeholder="Type house name/no." required="">
                     </div>
 
                     <div class="w-full">
