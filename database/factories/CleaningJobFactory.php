@@ -22,7 +22,7 @@ class CleaningJobFactory extends Factory
     {
         return [
             'price' => $this->faker->randomFloat(2, 5, 30),
-            'scheduled_for' => Carbon::now()->addDays($this->faker->numberBetween(1, 28)),
+            'scheduled_for' => Carbon::now()->addDays($this->faker->numberBetween(1, 28))->format('Y-m-d'),
             'status' => $this->faker->randomElement(['scheduled']),
             'notes' => $this->faker->text(),
         ];
@@ -38,7 +38,7 @@ class CleaningJobFactory extends Factory
     public function markCompleted(): static
     {
         return $this->state(fn (array $attributes) => [
-            'scheduled_for' => Carbon::now()->subMonths($this->faker->numberBetween(1, 12)),
+            'scheduled_for' => Carbon::now()->subMonths($this->faker->numberBetween(1, 12))->format('Y-m-d'),
             'completed_at' => Carbon::now(),
             'status' => 'completed',
         ]);

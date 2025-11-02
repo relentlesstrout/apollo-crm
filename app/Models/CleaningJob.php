@@ -12,11 +12,13 @@ class CleaningJob extends Model
         'customer_id',
         'price',
         'status',
+        'scheduled_for',
+        'completed_at',
     ];
 
     protected $casts = [
-        'scheduled_for' => 'datetime',
-        'completed_at' => 'datetime',
+        'scheduled_for' => 'date',
+        'completed_at' => 'date',
         'price' => 'decimal:2',
     ];
 

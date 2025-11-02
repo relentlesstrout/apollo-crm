@@ -57,14 +57,14 @@
                 </div>
 
                 <div class="w-full">
-                    <label for="first_clean_date" class="block mb-2 text-sm font-medium text-gray-900">
+                    <label for="scheduled_for" class="block mb-2 text-sm font-medium text-gray-900">
                         First Clean Date
                     </label>
                     <input
                         type="date"
-                        name="first_clean_date"
-                        id="first_clean_date"
-                        value="{{ old('first_clean_date', now()->addWeeks(4)->format('Y-m-d')) }}"
+                        name="scheduled_for"
+                        id="scheduled_for"
+                        value="{{ old('scheduled_for', now()->addWeeks(4)->format('Y-m-d')) }}"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
                         required
                     >

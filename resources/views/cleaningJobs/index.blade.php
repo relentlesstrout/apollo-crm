@@ -63,7 +63,7 @@
                     £{{ number_format($job->price, 2) }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                    {{ $job->scheduled_for?->format('d/m/Y H:i') ?? 'N/A' }}
+                    {{ $job->scheduled_for?->format('d/m/Y') ?? 'N/A' }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                     {{ $job->status ?? 'N/A' }}
@@ -72,7 +72,7 @@
                     {{ $job->notes ?? '' }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
-                    {{ $job->completed_at?->format('d/m/Y H:i') ?? 'Pending' }}
+                    {{ $job->completed_at?->format('d/m/Y') ?? 'Pending' }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap">
                     <x-view-button :link="route('cleaningJobs.show', $job)"></x-view-button>

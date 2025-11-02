@@ -76,16 +76,16 @@ class CustomerController extends Controller
             'phone' => 'nullable|string|max:20',
             'notes' => 'nullable|string|max:255',
             'first_clean_price' => 'required|numeric|min:0',
-            'first_clean_date' => 'required|date',
-        ]);
+            'scheduled_for' => 'required|date',
+            ]);
 
-        $customer = Customer::create(collect($validated)->except(['first_clean_price', 'first_clean_date'])->toArray());
+        $customer = Customer::create(collect($validated)->except(['first_clean_price', 'scheduled_for'])->toArray());
 
         // Create first Job
 
         $customer->cleaningJobs()->create([
             'price' => $validated['first_clean_price'],
-            'scheduled_for' => $validated['first_clean_date'],
+            'scheduled_for' => $validated['scheduled_for'],
             'status' => 'scheduled',
             'completed_at' => null,
             'notes' => null,
