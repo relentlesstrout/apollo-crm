@@ -39,6 +39,14 @@ class CleaningJobController extends Controller
                         $q->whereIn('street', $values);
                     });
                 }),
+
+                // Filter by multiple house
+                AllowedFilter::callback('house', function ($query, $values) {
+                    $values = (array) $values; // ensure it’s an array (from multi-select)
+                    $query->whereHas('customer', function ($q) use ($values) {
+                        $q->whereIn('area', $values);
+                    });
+                }),
             ]);
 
         $cleaningJobs = $query->paginate(12);
@@ -123,5 +131,10 @@ class CleaningJobController extends Controller
             ->get();
 
         return view('cleaningJobs.scheduling', compact('upcomingJobs'));
+    }
+
+    public function schedule_next_job(CleaningJob $cleaningJob)
+    {
+        $cleaningJob->update(['scheduled_for' => Carbon::today()->addWeeks(4)]);
     }
 }
