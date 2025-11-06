@@ -57,7 +57,7 @@
         @foreach($cleaningJobs as $job)
             <tr class="odd:bg-gray-50 even:bg-gray-100">
                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">
-                    {{ $job->customer->house ?? '' }} - {{ $job->customer->street ?? '' }}
+                    {{ $job->customer->fullAddress ?? '' }}
                 </td>
                 <td class="px-6 py-4 whitespace-nowrap text-sm">
                     £{{ number_format($job->price, 2) }}

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\CleaningJob;
 use App\Models\Customer;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 use Spatie\QueryBuilder\AllowedFilter;
@@ -112,5 +113,15 @@ class CleaningJobController extends Controller
 
         return view('cleaningJobs.today', ['todayJobs' => $todaysJobs]);
     }
-}
 
+    public function scheduling()
+    {
+        $upcomingJobs = CleaningJob::query()
+            ->whereDate('scheduled_for', '<=', Carbon::today()->addWeek())
+            ->where('status', 'scheduled')
+            ->orderBy('scheduled_for', 'asc')
+            ->get();
+
+        return view('cleaningJobs.scheduling', compact('upcomingJobs'));
+    }
+}

@@ -21,6 +21,7 @@ class CleaningJobFactory extends Factory
     public function definition(): array
     {
         return [
+            'customer_id' => Customer::factory(),
             'price' => $this->faker->randomFloat(2, 5, 30),
             'scheduled_for' => Carbon::now()->addDays($this->faker->numberBetween(1, 28))->format('Y-m-d'),
             'status' => $this->faker->randomElement(['scheduled']),
@@ -42,5 +43,11 @@ class CleaningJobFactory extends Factory
             'completed_at' => Carbon::now(),
             'status' => 'completed',
         ]);
+    }
+
+    public function dueWithinOneWeek(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'scheduled_for' => Carbon::now()->addDays(7)->toDateString(),            ]);
     }
 }

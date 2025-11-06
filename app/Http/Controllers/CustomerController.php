@@ -8,32 +8,6 @@ use Spatie\QueryBuilder\QueryBuilder;
 
 class CustomerController extends Controller
 {
-    public function areas()
-    {
-        $areas = Customer::pluck('area')->unique();
-        return view('customers.areas', ['areas' => $areas]);
-    }
-
-    public function streets($area)
-    {
-        $streets = Customer::where('area', $area)
-            ->select('street')
-            ->distinct()
-            ->get()
-            ->pluck('street');
-
-        return view('customers.streets', compact('area', 'streets'));
-    }
-
-    public function streetCustomers($area, $street)
-    {
-        $customers = Customer::with('CleaningJobs')
-            ->where('area', $area)
-            ->where('street', $street)
-            ->paginate(12);
-
-        return view('customers.streetcustomers', compact('customers', 'area', 'street'));
-    }
 
     public function index(Request $request)
     {
@@ -137,4 +111,5 @@ class CustomerController extends Controller
         $customer->delete();
         return redirect()->route('customers.index');
     }
+
 }

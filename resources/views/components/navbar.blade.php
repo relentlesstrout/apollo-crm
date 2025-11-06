@@ -5,4 +5,6 @@
 
     <x-nav-link href="{{ route('cleaningJobs.index') }}" :active="request()->is('cleaningJobs')">Jobs</x-nav-link>
 
+    <x-nav-link href="{{ route('scheduling') }}" :active="request()->is('scheduling')">Scheduling</x-nav-link>
+
 </nav>
