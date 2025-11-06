@@ -14,8 +14,8 @@ return new class extends Migration
                 ->cascadeOnUpdate()->restrictOnDelete();
             $table->decimal('amount_owed', 10, 2)->nullable();
             $table->decimal('amount_paid', 10, 2)->nullable();
-            $table->dateTime('satisfied_at')->nullable();
-            $table->dateTime('due_at')->nullable();
+            $table->date('satisfied_at')->nullable();
+            $table->date('due_at')->nullable();
             $table->timestamps();
         });
     }

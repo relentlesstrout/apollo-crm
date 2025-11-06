@@ -12,10 +12,10 @@ return new class extends Migration {
             $table->foreignId('customer_id')->constrained('customers')
                 ->cascadeOnUpdate()->restrictOnDelete();
             $table->decimal('price', 10, 2)->nullable();
-            $table->dateTime('scheduled_for')->nullable();
+            $table->date('scheduled_for')->nullable();
             $table->string('status')->nullable();
             $table->text('notes')->nullable();
-            $table->dateTime('completed_at')->nullable();
+            $table->date('completed_at')->nullable();
             $table->timestamps();
         });
     }

@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('area')->nullable();
             $table->string('phone')->nullable();
             $table->text('notes')->nullable();
+            $table->unsignedTinyInteger('cleaning_frequency_weeks')->default(4);
             $table->softDeletes();
             $table->timestamps();
         });

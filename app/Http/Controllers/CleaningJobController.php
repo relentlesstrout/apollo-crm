@@ -71,7 +71,7 @@ class CleaningJobController extends Controller
      */
     public function show(CleaningJob $cleaningJob)
     {
-        //
+        return view('cleaningJobs.show', compact('cleaningJob'));
     }
 
     /**
@@ -79,7 +79,7 @@ class CleaningJobController extends Controller
      */
     public function edit(CleaningJob $cleaningJob)
     {
-
+        return view('cleaningJobs.edit', compact('cleaningJob'));
     }
 
     /**
@@ -87,7 +87,8 @@ class CleaningJobController extends Controller
      */
     public function update(Request $request, CleaningJob $cleaningJob)
     {
-
+        $cleaningJob->update($request->all());
+        return redirect()->route('cleaningJobs.index');
     }
 
     /**
@@ -95,13 +96,14 @@ class CleaningJobController extends Controller
      */
     public function destroy(CleaningJob $cleaningJob)
     {
-        //
+        $cleaningJob->delete();
+        return redirect()->route('cleaningJobs.index');
     }
 
 
     public function scheduleNextJobs()
     {
-
+        //TODO
     }
 
     public function today()

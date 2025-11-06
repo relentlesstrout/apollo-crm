@@ -75,6 +75,7 @@ class CustomerController extends Controller
             'area' => 'required|string',
             'phone' => 'nullable|string|max:20',
             'notes' => 'nullable|string|max:255',
+            'cleaning_frequency_weeks' => 'required|integer|min:4|max:52',
             'first_clean_price' => 'required|numeric|min:0',
             'scheduled_for' => 'required|date',
             ]);

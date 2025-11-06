@@ -24,6 +24,7 @@ class CustomerFactory extends Factory
             'street' => $this->faker->streetName(),
             'area' => $this->faker->city(),
             'phone' => $this->faker->phoneNumber(),
+            'cleaning_frequency_weeks' => $this->faker->randomElement([4, 4, 4, 8]),
             'notes' => $this->faker->optional()->sentence(),
         ];
     }
