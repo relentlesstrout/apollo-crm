@@ -53,7 +53,15 @@ class CustomerController extends Controller
         $areas = Customer::distinct()->pluck('area');
         $streets = Customer::distinct()->pluck('street');
 
-        return view('customers.index', compact('areas', 'streets', 'customers'));
+        // Build area-to-streets mapping for dependent filtering
+        $streetsByArea = Customer::select('area', 'street')
+            ->distinct()
+            ->get()
+            ->groupBy('area')
+            ->map(fn($group) => $group->pluck('street')->toArray())
+            ->toArray();
+
+        return view('customers.index', compact('areas', 'streets', 'customers', 'streetsByArea'));
     }
 
     /**

@@ -16,18 +16,40 @@
     <form method="GET" action="{{ route('customers.index') }}" class="filters pb-6" id="customer-filter-form">
         <div class="flex justify-between items-end">
             <div class="flex gap-4 items-end">
-                @include('components.fields.multi-select', [
-                    'label' => 'Area',
-                    'options' => $areas,
-                    'field_name' => 'filter[area]'
-                ])
+                @php
+                    $areaSelectId = 'multiselect_filter[area]_' . uniqid();
+                    $streetSelectId = 'multiselect_filter[street]_' . uniqid();
 
-                @include('components.fields.multi-select', [
-                'label' => 'Street',
-                'options' => $streets,
-                'field_name' => 'filter[street]'
-                ])
+                    // Create reverse mapping: street => [areas that have this street]
+                    $streetParentMapping = [];
+                    foreach ($streetsByArea as $area => $streetsList) {
+                        foreach ($streetsList as $street) {
+                            if (!isset($streetParentMapping[$street])) {
+                                $streetParentMapping[$street] = [];
+                            }
+                            $streetParentMapping[$street][] = $area;
+                        }
+                    }
+                @endphp
 
+                <div id="{{ $areaSelectId }}">
+                    @include('components.fields.multi-select', [
+                        'label' => 'Area',
+                        'options' => $areas,
+                        'field_name' => 'filter[area]',
+                        'uniqueId' => $areaSelectId
+                    ])
+                </div>
+
+                <div id="{{ $streetSelectId }}">
+                    @include('components.fields.multi-select', [
+                        'label' => 'Street',
+                        'options' => $streets,
+                        'field_name' => 'filter[street]',
+                        'parent_values_map' => $streetParentMapping,
+                        'uniqueId' => $streetSelectId
+                    ])
+                </div>
 
                 @include('components.fields.toggle-switch', [
                     'field_name' => 'show_deleted',
@@ -93,4 +115,12 @@
         {{ $customers->links() }}
     </div>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize dependent filtering between area and street
+            if (typeof initDependentMultiSelect === 'function') {
+                initDependentMultiSelect('{{ $areaSelectId }}', '{{ $streetSelectId }}');
+            }
+        });
+    </script>
 @endsection

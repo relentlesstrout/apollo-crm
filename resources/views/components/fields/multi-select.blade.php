@@ -1,5 +1,5 @@
 @php
-    $uniqueId = 'multiselect_' . ($field_name ?? 'default') . '_' . uniqid();
+    $uniqueId = $uniqueId ?? 'multiselect_' . ($field_name ?? 'default') . '_' . uniqid();
 @endphp
 
 <div class="relative inline-block" id="{{ $uniqueId }}">
@@ -40,8 +40,14 @@
                                     $isSelected = is_array($requestValues) ? in_array($option, $requestValues) : $requestValues === $option;
                                 }
                             }
+
+                            // Handle parent values for dependent filtering
+                            $parentValuesAttr = '';
+                            if (isset($parent_values_map) && isset($parent_values_map[$option])) {
+                                $parentValuesAttr = ' data-parent-values=\'' . json_encode($parent_values_map[$option]) . '\'';
+                            }
                         @endphp
-                        <label class="option-item flex items-center px-2 py-2 hover:bg-gray-100 rounded cursor-pointer" data-value="{{ $option }}">
+                        <label class="option-item flex items-center px-2 py-2 hover:bg-gray-100 rounded cursor-pointer" data-value="{{ $option }}"{!! $parentValuesAttr !!}>
                             <input type="checkbox"
                                    name="{{ $field_name ?? 'multi_select' }}[]"
                                    value="{{ $option }}"
