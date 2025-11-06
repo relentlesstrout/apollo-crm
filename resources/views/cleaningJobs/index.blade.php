@@ -1,5 +1,9 @@
 @extends('layout.app')
 
+@section('pageTitle')
+    <x-page-title title="Cleaning Jobs" />
+@endsection
+
 @section('content')
     @if(session('success'))
         <div class="mb-4 p-3 bg-green-100 text-green-800 border border-green-300 rounded">

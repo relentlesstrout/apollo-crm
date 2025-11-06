@@ -1,5 +1,9 @@
 @extends('layout.app')
 
+@section('pageTitle')
+    <x-page-title title="Edit Customer" />
+@endsection
+
 @section('content')
     <section class="bg-white">
         <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">

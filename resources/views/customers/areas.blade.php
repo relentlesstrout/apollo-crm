@@ -1,6 +1,10 @@
 
 @extends('layout.app')
 
+@section('pageTitle')
+    <x-page-title title="Customer Areas" />
+@endsection
+
 @section('content')
 
         <div class="grid grid-cols-2 gap-6">

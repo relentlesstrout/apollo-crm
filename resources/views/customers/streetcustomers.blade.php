@@ -1,5 +1,9 @@
 @extends('layout.app')
 
+@section('pageTitle')
+    <x-page-title :title="$street . ' – ' . $area" />
+@endsection
+
 @section('content')
 
     <div class="flex justify-between items-center p-4 bg-gray-100 border-b border-gray-300">
