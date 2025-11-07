@@ -6,6 +6,7 @@ use App\Models\Customer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
 use Livewire\Attributes\Computed;
+use Livewire\Attributes\Url;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -13,9 +14,15 @@ final class FilterableCustomerTable extends Component
 {
     use WithPagination;
 
+    #[Url]
     public array $area = [];
+
+    #[Url]
     public array $street = [];
+
+    #[Url]
     public bool $showInactive = false;
+
     public int $perPage = 10;
     public array $sort = ['column' => 'created_at', 'direction' => 'desc'];
 
