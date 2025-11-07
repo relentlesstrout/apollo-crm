@@ -14,7 +14,7 @@
         </svg>
     </button>
 
-    <div x-show="open" @click.away="open = false" x-transition class="absolute z-50 mt-2 w-64 shadow-lg bg-white border border-gray-200">
+    <div x-show="open" x-cloak @click.away="open = false" x-transition class="absolute z-50 mt-2 w-64 shadow-lg bg-white border border-gray-200">
         <div class="p-4">
             <div class="max-h-60 overflow-y-auto">
                 @foreach($options as $option)
