@@ -18,6 +18,9 @@
                     <x-nav-link href="{{ route('scheduling') }}" :active="request()->is('scheduling*')">
                         Scheduling
                     </x-nav-link>
+                    <x-nav-link href="{{ route('indexToday') }}" :active="request()->is('indexToday*')">
+                        Today's Jobs
+                    </x-nav-link>
                 </div>
             </div>
             <div class="-mr-2 flex items-center sm:hidden">

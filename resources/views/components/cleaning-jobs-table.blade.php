@@ -48,6 +48,7 @@
                                 <x-view-button :link="route('cleaningJobs.show', $job)" />
                                 <x-edit-button :link="route('cleaningJobs.edit', $job)" />
                                 <x-delete-button :link="route('cleaningJobs.destroy', $job)" />
+                                <livewire:toggle-due-today :job="$job" :key="$job->id" />
                             </td>
                         </tr>
                     @empty

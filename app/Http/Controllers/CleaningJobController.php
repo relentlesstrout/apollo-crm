@@ -101,19 +101,6 @@ class CleaningJobController extends Controller
         return redirect()->route('cleaningJobs.index');
     }
 
-
-    public function scheduleNextJobs()
-    {
-        //TODO
-    }
-
-    public function today()
-    {
-        $todaysJobs = CleaningJob::where('scheduled_at', today())->get();
-
-        return view('cleaningJobs.today', ['todayJobs' => $todaysJobs]);
-    }
-
     public function scheduling()
     {
         $upcomingJobs = CleaningJob::query()
@@ -123,5 +110,24 @@ class CleaningJobController extends Controller
             ->get();
 
         return view('cleaningJobs.scheduling', compact('upcomingJobs'));
+    }
+
+    public function markDueToday($id)
+    {
+        $job = CleaningJob::findOrFail($id);
+
+        $job->due_today = !$job->due_today;
+        $job->save();
+    }
+
+    public function indexToday()
+    {
+        $jobsToday = CleaningJob::where('status', 'scheduled')
+            ->where('due_today', true)
+            ->get();
+
+        return view('cleaningJobs.today', compact('jobsToday'), [
+            'jobsToday' => $jobsToday,
+        ]);
     }
 }
