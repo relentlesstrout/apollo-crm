@@ -1,4 +1,9 @@
 <div>
+    @if(session('success'))
+        <div class="mb-4 p-3 bg-green-100 text-green-800 border border-green-300 rounded">
+            {{ session('success') }}
+        </div>
+    @endif
     <!-- Filters Section -->
     <div class="mb-6">
         <div class="flex items-center justify-between gap-4">
@@ -24,7 +29,12 @@
                 @endif
             </div>
 
-            <x-status-toggle :showInactive="$showInactive" />
+            <x-toggle
+                :model="'showInactive'"
+                :true-label="'Inactive'"
+                :false-label="'Active'"
+                :value="$showInactive"
+            />
         </div>
     </div>
 
