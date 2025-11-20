@@ -15,6 +15,7 @@ class CleaningJob extends Model
         'status',
         'scheduled_for',
         'completed_at',
+        'due_today',
     ];
 
     protected $casts = [

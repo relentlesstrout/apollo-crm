@@ -48,8 +48,12 @@ class Customer extends Model
     {
         return Attribute::make(
             get: function () {
-                return $this->house . ' ' . $this->street . ' ' . $this->area;
+                return implode("\n", array_filter([
+                    $this->house . ' ' . $this->street,
+                    $this->area,
+                ]));
             }
         );
     }
+
 }
