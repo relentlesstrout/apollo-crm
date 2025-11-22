@@ -1,4 +1,14 @@
 @props(['cleaning-jobs'])
+@php
+    $columns = [
+        'fullAddress' => 'Address',
+        'price' => 'Price',
+        'scheduled_for' => 'Scheduled For',
+        'status' => 'Status',
+        'notes' => 'Notes',
+        'completed_at' => 'Completed At'
+    ];
+@endphp
 
 <div class="flow-root">
     <div class="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -7,14 +17,17 @@
                 <table class="relative min-w-full divide-y divide-gray-300">
                     <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="py-3.5 pr-3 pl-4 text-left text-sm font-semibold text-gray-900 sm:pl-6">Address</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Price</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Scheduled For</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Status</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Notes</th>
-                        <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Completed At</th>
-                        <th scope="col" class="py-3.5 pr-4 pl-3 sm:pr-6 text-center">
-                            <span class="sr-only">Actions</span>
+                        @foreach($columns as $field => $label)
+                            <th scope="col" class="py-3.5 pr-3 pl-4 text-center text-sm font-semibold text-gray-900 sm:pl-6 cursor-pointer"
+                            wire:click="sortBy('{{ $field }}')" class="cursor-pointer">
+                                {{ $label }}
+                                @if($sortField === $field)
+                                    {{ $sortDirection === 'asc' ? '▲' : '▼' }}
+                                @endif
+                            </th>
+                        @endforeach
+                        <th scope="col" class="py-3.5 pr-3 pl-4 text-center text-sm font-semibold text-gray-900 sm:pl-6">
+                            Actions
                         </th>
                     </tr>
                     </thead>

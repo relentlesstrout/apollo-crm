@@ -47,7 +47,12 @@
         </div>
     </div>
 
-    <x-cleaning-jobs-table :cleaning-jobs="$this->items" />
+    <x-cleaning-jobs-table
+        :cleaning-jobs="$this->items"
+        :sort-field="$sortField"
+        :sort-direction="$sortDirection"
+        wire:click="sortBy()"
+    />
 
     <div class="mt-4">
         {{ $this->items->links() }}

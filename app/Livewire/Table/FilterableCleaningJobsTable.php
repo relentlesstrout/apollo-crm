@@ -32,7 +32,8 @@ class FilterableCleaningJobsTable extends Component
 
     public int $perPage = 10;
 
-    public array $sort = ['column' => 'scheduled_for', 'direction' => 'desc'];
+    public $sortField = 'scheduled_for';
+    public $sortDirection = 'asc';
 
     public function updatingArea(): void
     {
@@ -57,12 +58,16 @@ class FilterableCleaningJobsTable extends Component
         $this->resetPage();
     }
 
-    #[Computed]
-    public function items(): LengthAwarePaginator
+    public function sortBy(string $field)
     {
-        return $this->query()
-            ->orderBy($this->sort['column'], $this->sort['direction'])
-            ->paginate($this->perPage);
+        if ($this->sortField === $field) {
+            $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        }
+        else {
+            $this->sortField = $field;
+            $this->sortDirection = 'asc';
+        }
+        $this->resetPage();
     }
 
     #[Computed]
@@ -147,6 +152,14 @@ class FilterableCleaningJobsTable extends Component
 
     public function render()
     {
-        return view('livewire.filterable-cleaning-jobs-table');
+        $this->items = $this->query()
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
+
+        return view('livewire.filterable-cleaning-jobs-table', [
+            'items' => $this->items,
+            'sortField' => $this->sortField,
+            'sortDirection' => $this->sortDirection,
+        ]);
     }
 }
