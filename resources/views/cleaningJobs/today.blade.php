@@ -1,9 +1,9 @@
 @extends('layout.app')
 
-@section('content')
-    <div class="flex justify-between items-center p-4 bg-gray-100 border-b border-gray-300">
-        <table>
+@section('pageTitle')
+    <x-page-title title="Today's Jobs" />
+@endsection
 
-        </table>
-    </div>
+@section('content')
+    <livewire:filterable-job-cards/>
 @endsection

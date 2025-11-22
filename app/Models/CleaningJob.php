@@ -15,6 +15,7 @@ class CleaningJob extends Model
         'status',
         'scheduled_for',
         'completed_at',
+        'due_today',
     ];
 
     protected $casts = [
@@ -34,7 +35,7 @@ class CleaningJob extends Model
 
     public function customer()
     {
-        return $this->belongsTo(Customer::class);
+        return $this->belongsTo(Customer::class)->withTrashed();
     }
 
     public function invoice()

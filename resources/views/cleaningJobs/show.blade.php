@@ -1,5 +1,12 @@
 @extends('layout.app')
 
+@section('pageTitle')
+    <x-page-title
+        :title="'Cleaning Job #' . $cleaningJob->id"
+        :description="$cleaningJob->customer->fullAddress ?? null"
+    />
+@endsection
+
 @section('content')
     <div class="flex justify-between items-center p-4 bg-gray-100 border-b border-gray-300">
         <h2 class="text-xl font-bold text-gray-800">
