@@ -21,7 +21,6 @@ class CleaningJobFactory extends Factory
     public function definition(): array
     {
         return [
-            'customer_id' => Customer::factory(),
             'price' => $this->faker->randomFloat(2, 5, 30),
             'scheduled_for' => Carbon::now()->addDays($this->faker->numberBetween(1, 28))->format('Y-m-d'),
             'status' => $this->faker->randomElement(['scheduled']),

@@ -25,7 +25,7 @@ class CustomerSeeder extends Seeder
                     Invoice::factory()->forCleaningJob($cleaningJob)->create();
                 }
 
-            CleaningJob::factory()->count(1)->forCustomer($customer)->create();
+            CleaningJob::factory()->count(1)->forCustomer($customer)->dueWithinOneWeek()->create();
 
         }
     }
