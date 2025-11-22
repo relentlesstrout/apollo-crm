@@ -32,8 +32,8 @@ class FilterableCleaningJobsTable extends Component
 
     public int $perPage = 10;
 
-    public $sortField = 'scheduled_for';
-    public $sortDirection = 'asc';
+    public string $sortField = 'scheduled_for';
+    public string $sortDirection = 'asc';
 
     public function updatingArea(): void
     {
@@ -61,13 +61,15 @@ class FilterableCleaningJobsTable extends Component
     public function sortBy(string $field)
     {
         if ($this->sortField === $field) {
+            // If clicking the same column, toggle direction
             $this->sortDirection = $this->sortDirection === 'asc' ? 'desc' : 'asc';
         }
         else {
+            // If clicking a new column, sort by that field (default asc)
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
-        $this->resetPage();
+        $this->resetPage(); // Reset to page 1 when sorting changes
     }
 
     #[Computed]
@@ -118,8 +120,6 @@ class FilterableCleaningJobsTable extends Component
             ->all();
     }
 
-
-
     public function query(): Builder
     {
         return CleaningJob::query()
@@ -149,15 +149,32 @@ class FilterableCleaningJobsTable extends Component
             });
     }
 
+    #[Computed]
+    public function items(): LengthAwarePaginator
+    {
+        $query = $this->query();
+
+        /**
+         * Need an additional check before using the query, If a user has opted to sort by 'fullAddress', then join
+         * with customers table to sort by address fields, as fullAddress is a computed field, and not an actual
+         * DB column.
+         */
+        if ($this->sortField === 'fullAddress') {
+            $query->join('customers', 'cleaning_jobs.customer_id', '=', 'customers.id')
+                ->select('cleaning_jobs.*')
+                ->orderBy('customers.area', $this->sortDirection)
+                ->orderBy('customers.street', $this->sortDirection)
+                ->orderBy('customers.house', $this->sortDirection);
+        } else {
+            $query->orderBy($this->sortField, $this->sortDirection);
+        }
+
+        return $query->paginate($this->perPage);
+    }
 
     public function render()
     {
-        $this->items = $this->query()
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
-
         return view('livewire.filterable-cleaning-jobs-table', [
-            'items' => $this->items,
             'sortField' => $this->sortField,
             'sortDirection' => $this->sortDirection,
         ]);
