@@ -6,6 +6,7 @@ use App\Models\CleaningJob;
 use App\Models\Customer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\Log;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Url;
 use Livewire\Component;
@@ -29,10 +30,12 @@ class FilterableCleaningJobsTable extends Component
     #[Url]
     public bool $onlyScheduled = false;
 
-
     public int $perPage = 10;
 
+    #[Url]
     public string $sortField = 'scheduled_for';
+
+    #[Url]
     public string $sortDirection = 'asc';
 
     public function updatingArea(): void
@@ -69,7 +72,8 @@ class FilterableCleaningJobsTable extends Component
             $this->sortField = $field;
             $this->sortDirection = 'asc';
         }
-        $this->resetPage(); // Reset to page 1 when sorting changes
+        $this->resetPage();
+        Log::info($field);
     }
 
     #[Computed]

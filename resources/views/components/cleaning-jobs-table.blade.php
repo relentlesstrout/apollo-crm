@@ -33,8 +33,7 @@
                     </thead>
                     <tbody class="divide-y divide-gray-200 bg-white">
                     @forelse($cleaningJobs as $job)
-
-                        <tr>
+                        <tr wire:key="{{ $job->id }}">
                             <td class="py-4 pr-3 pl-4 text-sm whitespace-nowrap sm:pl-6">
                                 <div class="flex items-center">
                                     <div class="ml-1">
