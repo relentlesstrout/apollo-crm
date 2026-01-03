@@ -18,7 +18,7 @@ class Customer extends Model
         'area',
         'phone',
         'notes',
-        'cancelled',
+        'cleaning_frequency_weeks',
         'price',
         'scheduled_for',
         'status',

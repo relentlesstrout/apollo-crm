@@ -99,7 +99,17 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-        $customer->update($request->all());
+        $validated = $request->validate([
+            'house' => 'required|string',
+            'street' => 'required|string|max:50',
+            'area' => 'required|string',
+            'phone' => 'nullable|string|max:20',
+            'notes' => 'nullable|string|max:255',
+            'cleaning_frequency_weeks' => 'required|integer|min:4|max:52',
+        ]);
+
+        $customer->update($validated);
+
         return redirect()->route('customers.index');
     }
 
