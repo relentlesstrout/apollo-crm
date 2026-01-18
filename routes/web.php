@@ -5,6 +5,9 @@ use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 Route::resource('customers', CustomerController::class);
+Route::patch('/customers/{id}/restore', [CustomerController::class, 'restore'])
+    ->name('customers.restore');
+
 
 Route::resource('cleaningJobs', CleaningJobController::class);
 
