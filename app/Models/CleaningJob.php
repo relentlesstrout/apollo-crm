@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CleaningJob extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     protected $fillable = [
         'customer_id',
         'price',
@@ -16,6 +17,7 @@ class CleaningJob extends Model
         'scheduled_for',
         'completed_at',
         'due_today',
+        'notes',
     ];
 
     protected $casts = [

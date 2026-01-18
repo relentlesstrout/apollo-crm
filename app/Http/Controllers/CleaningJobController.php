@@ -96,7 +96,16 @@ class CleaningJobController extends Controller
      */
     public function update(Request $request, CleaningJob $cleaningJob)
     {
-        $cleaningJob->update($request->all());
+       $validated = $request->validate([
+           'price' => 'required|numeric',
+           'status' => 'required|string',
+           'scheduled_for' => 'required|date',
+           'completed_at' => 'nullable|date',
+           'notes' => 'nullable|string|max:255',
+       ]);
+
+       $cleaningJob->update($validated);
+
         return redirect()->route('cleaningJobs.index');
     }
 
