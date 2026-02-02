@@ -26,7 +26,6 @@ class CustomerSeeder extends Seeder
                 }
 
             CleaningJob::factory()->count(1)->forCustomer($customer)->dueWithinOneWeek()->create();
-
         }
     }
 }
