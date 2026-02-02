@@ -3,7 +3,7 @@
         <div class="flex h-16 justify-between">
             <div class="flex">
                 <div class="flex shrink-0 items-center">
-                    <img src="{{ asset('logo.png') }}" alt="Apollo CRM" class="h-14 w-auto" />
+                    <img src="{{asset('images/logo.png')}}" alt="Apollo CRM" class="h-14 w-auto" />
                 </div>
                 <div class="hidden sm:-my-px sm:ml-6 sm:flex sm:space-x-8">
                     <x-nav-link href="{{ url('/') }}" :active="request()->is('/') || request()->is('')" >
