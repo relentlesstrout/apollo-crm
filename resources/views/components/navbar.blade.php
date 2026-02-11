@@ -9,6 +9,9 @@
                     <x-nav-link href="{{ url('/') }}" :active="request()->is('/') || request()->is('')" >
                         Dashboard
                     </x-nav-link>
+                    <x-nav-link href="{{ route('admins.index') }}" :active="request()->is('admins*')">
+                        Manage Accounts
+                    </x-nav-link>
                     <x-nav-link href="{{ route('customers.index') }}" :active="request()->is('customers*')">
                         Customers
                     </x-nav-link>
@@ -36,17 +39,23 @@
 
     <div id="mobile-menu" class="hidden sm:hidden">
         <div class="space-y-1 pt-2 pb-3">
-            <x-nav-link variant="mobile" href="{{ url('/') }}" :active="request()->is('/') || request()->is('')">
+            <x-nav-link href="{{ url('/') }}" :active="request()->is('/') || request()->is('')" >
                 Dashboard
             </x-nav-link>
-            <x-nav-link variant="mobile" href="{{ route('customers.index') }}" :active="request()->is('customers*')">
+            <x-nav-link href="{{ route('admins.index') }}" :active="request()->is('admins*')">
+                Manage Accounts
+            </x-nav-link>
+            <x-nav-link href="{{ route('customers.index') }}" :active="request()->is('customers*')">
                 Customers
             </x-nav-link>
-            <x-nav-link variant="mobile" href="{{ route('cleaningJobs.index') }}" :active="request()->is('cleaningJobs*')">
+            <x-nav-link href="{{ route('cleaningJobs.index') }}" :active="request()->is('cleaningJobs*')">
                 Jobs
             </x-nav-link>
-            <x-nav-link variant="mobile" href="{{ route('scheduling') }}" :active="request()->is('scheduling*')">
+            <x-nav-link href="{{ route('scheduling') }}" :active="request()->is('scheduling*')">
                 Scheduling
+            </x-nav-link>
+            <x-nav-link href="{{ route('indexToday') }}" :active="request()->is('indexToday*')">
+                Today's Jobs
             </x-nav-link>
         </div>
     </div>

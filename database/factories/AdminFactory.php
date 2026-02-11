@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use App\Models\Admin;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Facades\Hash;
 
 class AdminFactory extends Factory
 {
@@ -12,8 +13,8 @@ class AdminFactory extends Factory
     public function definition(): array
     {
         return [
-            'email' => 'admin@apollo.com',
-            'password' => 'password',
+            'email' => $this->faker->unique()->safeEmail(),
+            'password' => Hash::make('password'),
         ];
     }
 }

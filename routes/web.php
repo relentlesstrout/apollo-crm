@@ -31,4 +31,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('today', [CleaningJobController::class, 'indexToday'])->name('indexToday');
     Route::get('scheduling', [CleaningJobController::class, 'scheduling'])->name('scheduling');
+
+    Route::resource('admins', AdminController::class);
 });
