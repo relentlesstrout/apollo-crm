@@ -27,7 +27,7 @@ class SortableAdminTable extends Component
     public function render(): \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View
     {
         return view('livewire.sortable-admin-table', [
-            'admins' => Admin::query()
+            'admins' => Admin::withTrashed()
                 ->orderBy($this->sortColumn, $this->sortDirection)
                 ->paginate(10)
         ]);

@@ -22,7 +22,7 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //
+        return view('admins.create');
     }
 
     /**
@@ -38,7 +38,7 @@ class AdminController extends Controller
      */
     public function show(Admin $admin)
     {
-        //
+        return view('admins.show', compact('admin'));
     }
 
     /**
@@ -62,6 +62,15 @@ class AdminController extends Controller
      */
     public function destroy(Admin $admin)
     {
-        //
+        $admin->delete();
+        return redirect()->route('admins.index')->with('success', 'Admin has been deleted');
     }
+
+    public function restore(Admin $admin)
+    {
+        $admin->restore();
+        return redirect()->route('admins.index')->with('success', 'Admin restored!');
+    }
+
+
 }

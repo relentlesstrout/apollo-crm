@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('password');
             $table->rememberToken();
+            $table->boolean('is_super_admin')->default(false);
             $table->timestamps();
             $table->softDeletes();
         });

@@ -15,6 +15,14 @@ Route::view('/login', 'auth.login')
 Route::post('/login', Login::class)
     ->middleware('guest');
 
+Route::middleware(['auth', 'superadmin'])->group(function () {
+    Route::resource('admins', AdminController::class);
+    Route::patch('/admins/{admin}/restore', [AdminController::class, 'restore'])
+        ->name('admins.restore')
+        ->withtrashed();
+});
+
+
 // All authenticated routes
 Route::middleware('auth')->group(function () {
     Route::post('/logout', Logout::class)->name('logout');
@@ -32,5 +40,4 @@ Route::middleware('auth')->group(function () {
     Route::get('today', [CleaningJobController::class, 'indexToday'])->name('indexToday');
     Route::get('scheduling', [CleaningJobController::class, 'scheduling'])->name('scheduling');
 
-    Route::resource('admins', AdminController::class);
 });

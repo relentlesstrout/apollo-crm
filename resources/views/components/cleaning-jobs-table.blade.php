@@ -59,7 +59,7 @@
                             <td class="py-4 pr-4 pl-3 text-sm whitespace-nowrap text-center">
                                 <x-view-button :link="route('cleaningJobs.show', $job)" />
                                 <x-edit-button :link="route('cleaningJobs.edit', $job)" />
-                                <x-delete-button :link="route('cleaningJobs.destroy', $job)" />
+                                <x-delete-button :link="route('cleaningJobs.destroy', $job)"/>
                                 <livewire:toggle-due-today :job="$job" :key="$job->id" />
                             </td>
                         </tr>

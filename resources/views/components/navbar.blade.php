@@ -9,9 +9,11 @@
                     <x-nav-link href="{{ url('/') }}" :active="request()->is('/') || request()->is('')" >
                         Dashboard
                     </x-nav-link>
+                    @if (auth()->user()->isSuperAdmin())
                     <x-nav-link href="{{ route('admins.index') }}" :active="request()->is('admins*')">
                         Manage Accounts
                     </x-nav-link>
+                    @endif
                     <x-nav-link href="{{ route('customers.index') }}" :active="request()->is('customers*')">
                         Customers
                     </x-nav-link>
@@ -26,11 +28,22 @@
                     </x-nav-link>
                 </div>
             </div>
+            <div class="hidden sm:flex sm:items-center sm:ml-6">
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button
+                        type="submit"
+                        class="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition"
+                    >
+                        Logout
+                    </button>
+                </form>
+            </div>
             <div class="-mr-2 flex items-center sm:hidden">
                 <button type="button" class="inline-flex items-center justify-center rounded-md bg-white p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-500 focus:outline-2 focus:outline-offset-2 focus:outline-indigo-600" aria-controls="mobile-menu" aria-expanded="false" data-mobile-menu-toggle>
                     <span class="sr-only">Open main menu</span>
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" class="h-6 w-6">
-                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round" />
+                        <path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
             </div>

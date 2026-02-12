@@ -3,7 +3,7 @@
 @section('pageTitle')
     <x-page-title title="Manage Accounts">
         <x-slot:actions>
-            <x-primary-button :href="route('admins.create')">Add New Admin</x-primary-button>
+            <x-primary-button :href="route('admins.create')">Invite New Admin</x-primary-button>
         </x-slot:actions>
     </x-page-title>
 @endsection

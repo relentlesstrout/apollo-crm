@@ -48,9 +48,14 @@
                                             <x-active-label />
                                         @endif
                                     </td>
-                                    <td class="py-4 pr-4 pl-3 text-sm whitespace-nowrap text-gray-500 text-left">
-                                        <a class="cursor-pointer underline" href="{{ route('admins.show', $admin) }}">View Customer</a>
+                                    <td class="px-3 py-4 text-sm whitespace-nowrap text-gray-500">
+                                        @if(! $admin->isSuperAdmin() && ! $admin->trashed())
+                                            <x-delete-button :link="route('admins.destroy', $admin)" />
+                                        @elseif(! $admin->isSuperAdmin() && $admin->trashed())
+                                            <x-restore-button :link="route('admins.restore', $admin)" />
+                                        @endif
                                     </td>
+
                                 </tr>
                             @empty
                                 <tr>
